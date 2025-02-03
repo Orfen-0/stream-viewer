@@ -1,0 +1,262 @@
+/* Global styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #fff;
+}
+
+/* Header */
+.header {
+    background-color: #1f1f1f;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+
+/* Main layout */
+.main-page .content {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+.sidebar {
+    width: 500px;
+    background-color: #1f1f1f;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.playback-area {
+    flex: 1;
+    background-color: #181818;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+/* Filter bar */
+.filter-bar {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Empty messages */
+.empty-message {
+    font-size: 1.2rem;
+    color: #ccc;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+/* Event list (sidebar) */
+.event-list {
+    width: 100%;
+    padding: 0.5rem; /* Adjust or remove padding if needed */
+    box-sizing: border-box;
+}
+
+/* Make each event card expand to fill the container */
+.event-item {
+    width: 100%;
+    background-color: #3f3f3f;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.2rem;
+    box-sizing: border-box;
+}
+
+.location-link {
+    color: #ffffff; /* a contrasting blue for a link */
+    text-decoration:underline;
+}
+
+.location-link:hover {
+    text-decoration: underline;
+}
+
+/* Style for the radius info */
+.radius-info {
+    font-weight: bold;
+}
+
+.event-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.live-indicator {
+    background-color: red;
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 4px;
+}
+
+.event-details {
+    font-size: 0.9rem;
+    color: #ddd;
+    margin-bottom: 0.5rem;
+}
+
+
+/* Stream list inside an event */
+.stream-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.stream-list li {
+    background-color: #2a2a2a;
+    border-radius: 6px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.stream-list li:hover {
+    background-color: #333;
+}
+
+/* Playback grid and tile */
+.playback-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1rem;
+}
+
+.playback-tile {
+    position: relative;
+    background: #000;
+    border: 1px solid #333;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 0, 0, 0.8);
+    border: none;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.mark-finished-button {
+    background-color: #1d7929;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;  /* Increased padding */
+    font-size: 1rem;      /* Larger font size */
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 0.7rem auto;
+    display: block;      /* Make it block-level so margins apply */
+}
+
+
+.divider {
+    border-top: 1px solid #777777;
+    margin: 0.5rem 0;
+}
+
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container input {
+    font-size: 1rem;
+    color: #fff;
+    background-color: #1f1f1f;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+/* Customize the calendar pop-up as needed */
+.react-datepicker {
+    background-color: #121212;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+}
+
+.date-picker-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+
+/* Stream Item Container */
+.stream-item {
+    background-color: #2a2a2a;
+    border-radius: 6px;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+/* Header: device ID on left, date on right with space in between */
+.stream-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Device ID styling */
+.stream-device {
+    font-weight: bold;
+}
+
+/* Date styling */
+.stream-date {
+    font-size: 0.9rem;
+}
+
+/* Live indicator styling */
+.live-indicator {
+    background-color: red;
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+}
+
+/* Watch Stream Button styling */
+.watch-stream-button {
+    display: block;
+    width: 100%;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.watch-stream-button:hover {
+    background-color: #555;
+}

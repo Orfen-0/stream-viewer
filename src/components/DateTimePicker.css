@@ -1,0 +1,42 @@
+/* Override react-datetime defaults for a dark theme */
+.rdt,
+.rdtPicker,
+.rdtTimeContainer,
+.rdtDays,
+.rdtMonth,
+.rdtYear,
+.rdtSwitch,
+.rdtPrev,
+.rdtNext,
+.rdtTime,
+.rdtInput,
+.rdtBtn {
+    background-color: #1f1f1f !important;
+    color: #fff !important;
+    border-color: #444 !important;
+}
+
+/* Ensure text stays white in calendar pop-up elements */
+.rdtPicker .rdtSwitch,
+.rdtPicker .rdtPrev,
+.rdtPicker .rdtNext,
+.rdtPicker td,
+.rdtPicker th {
+    color: #fff !important;
+}
+
+/* Change hover effects for buttons */
+.rdtSwitch:hover,
+.rdtPrev:hover,
+.rdtNext:hover,
+.rdtBtn:hover {
+    background-color: #333 !important;
+    color: #fff !important;
+}
+
+/* Container for two date pickers side by side */
+.date-picker-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
