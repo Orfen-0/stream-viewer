@@ -5,14 +5,10 @@ import { format } from 'date-fns';
 const EventItem = ({ event, onStreamSelect, onFinishEvent }) => {
     const [expanded, setExpanded] = useState(false);
 
-    // Format event.startTime (Unix timestamp in seconds) to dd/MM/yyyy HH:mm
     const formattedDate = format(new Date(event.startTime * 1000), 'dd/MM/yyyy HH:mm');
 
-    // Build a Google Maps search URL using the event's GeoJSON coordinates.
-    // Note: GeoJSON uses [longitude, latitude].
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${event.location.Coordinates[1]},${event.location.Coordinates[0]}`;
 
-    // Format location as a string for display, e.g. "51.5074, -0.1278"
     const locationString = event.location && event.location.Coordinates
         ? `${event.location.Coordinates[1].toFixed(4)}, ${event.location.Coordinates[0].toFixed(4)}`
         : 'Unknown';

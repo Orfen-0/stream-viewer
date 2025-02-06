@@ -1,4 +1,3 @@
-// src/pages/MainPage.jsx (only the change)
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import EventList from '../components/EventList';
@@ -21,8 +20,8 @@ const MainPage = () => {
 
     const handleFinishEvent = (eventId) => {
         console.log(`Event ${eventId} marked as finished`);
-        // Here you would call your API to mark the event finished and update the UI accordingly.
-    };
+        // TODO add event finish api call
+};
 
     return (
         <StreamPlaybackProvider>

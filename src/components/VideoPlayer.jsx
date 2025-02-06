@@ -10,7 +10,6 @@ const VideoPlayer = ({ streamUrl, isLive = true }) => {
         console.log("MSE Feature List:", mpegts.getFeatureList());
         console.log("mpegts isSupported:", mpegts.isSupported());
         console.log("videoRef.current:", videoRef.current);
-        // Destroy any existing player instance.
         if (playerRef.current) {
             playerRef.current.destroy();
             playerRef.current = null;
@@ -23,7 +22,6 @@ const VideoPlayer = ({ streamUrl, isLive = true }) => {
                 isLive: isLive,
             });
 
-            // Attach event listeners for debugging.
             player.on(mpegts.Events.ERROR, (err) => {
                 console.error("mpegts error:", err);
             });
@@ -63,7 +61,7 @@ const VideoPlayer = ({ streamUrl, isLive = true }) => {
             style={{
                 width: '100%',
                 height: '100%',
-                backgroundColor: 'black' // helps visualize the element
+                backgroundColor: 'black'
             }}
         />
     );

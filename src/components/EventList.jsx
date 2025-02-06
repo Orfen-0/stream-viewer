@@ -12,7 +12,6 @@ const EventList = ({ onStreamSelect, onFinishEvent }) => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // Prepopulate from/to: one week ago and now.
     const now = new Date();
     const oneWeekAgo = new Date(now);
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
@@ -24,7 +23,6 @@ const EventList = ({ onStreamSelect, onFinishEvent }) => {
 
     useEffect(() => {
         setLoading(true);
-        // Convert the datetime-local strings to Unix timestamps (in seconds)
         const fromUnix = Math.floor(new Date(fromDate).getTime() / 1000);
         const toUnix = Math.floor(new Date(toDate).getTime() / 1000);
 

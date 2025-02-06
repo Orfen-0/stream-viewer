@@ -1,11 +1,7 @@
-// src/components/DateTimePicker.jsx
 import React from 'react';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import './DateTimePicker.css'
-
-// Optionally, you can override default styling by adding your own CSS
-// in a separate CSS file if needed.
 
 const DateTimePicker = ({ value, onChange }) => {
     return (

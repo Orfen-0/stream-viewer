@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../Header.css'; // We'll add the styles here
+import '../Header.css';
 
 const Header = () => {
     const [showModal, setShowModal] = useState(false);
@@ -21,10 +21,8 @@ const Header = () => {
 
             if (!response.ok) {
                 console.error("Error posting event data:", response.statusText);
-                // Optionally display an error message to the user.
             } else {
                 console.log("Event posted successfully");
-                // Optionally do something with the response data.
             }
         } catch (error) {
             console.error("Error posting event data:", error);

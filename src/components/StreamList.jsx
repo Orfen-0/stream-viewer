@@ -1,4 +1,3 @@
-// src/components/StreamList.jsx
 import React from 'react';
 import StreamItem from './StreamItem';
 
