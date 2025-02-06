@@ -1,9 +1,10 @@
-// src/components/StreamItem.jsx
+// StreamItem.jsx
 import React from 'react';
 import { format } from 'date-fns';
+import { useStreamPlayback } from '../contexts/StreamPlaybackContenxt';
 
-const StreamItem = ({ stream, onWatch }) => {
-    // Format the stream's startTime (assumed to be Unix timestamp in seconds) to dd/MM/yyyy HH:mm.
+const StreamItem = ({ stream }) => {
+    const { addStream } = useStreamPlayback();
     const formattedDate = format(new Date(stream.startTime * 1000), 'dd/MM/yyyy HH:mm');
 
     return (
@@ -17,7 +18,7 @@ const StreamItem = ({ stream, onWatch }) => {
             </div>
             <button
                 className="watch-stream-button"
-                onClick={() => onWatch(stream.playbackUrl)}
+                onClick={() => addStream(stream)}
             >
                 Watch Stream
             </button>

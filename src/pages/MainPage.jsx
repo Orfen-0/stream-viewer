@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import EventList from '../components/EventList';
 import PlaybackGrid from '../components/PlaybackGrid';
+import {StreamPlaybackProvider} from "../contexts/StreamPlaybackContenxt";
 
 const MainPage = () => {
     const [selectedStreams, setSelectedStreams] = useState([]);
@@ -24,6 +25,8 @@ const MainPage = () => {
     };
 
     return (
+        <StreamPlaybackProvider>
+
         <div className="main-page">
             <Header />
             <div className="content">
@@ -35,7 +38,9 @@ const MainPage = () => {
                 </div>
             </div>
         </div>
-    );
+            </StreamPlaybackProvider>
+
+            );
 };
 
 export default MainPage;

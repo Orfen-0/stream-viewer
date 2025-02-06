@@ -1,11 +1,15 @@
+// PlaybackGrid.jsx
 import React from 'react';
+import { useStreamPlayback } from '../contexts/StreamPlaybackContenxt';
 import PlaybackTile from './PlaybackTile';
 
-const PlaybackGrid = ({ streams, onRemove }) => {
+const PlaybackGrid = () => {
+    const { selectedStreams, removeStream } = useStreamPlayback();
+
     return (
         <div className="playback-grid">
-            {streams.map((stream, index) => (
-                <PlaybackTile   key={`${stream.deviceId}-${stream.startTime}`} stream={stream} onRemove={onRemove} />
+            {selectedStreams.map((stream) => (
+                <PlaybackTile key={stream.key} stream={stream} onRemove={removeStream} />
             ))}
         </div>
     );
