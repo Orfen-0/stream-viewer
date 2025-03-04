@@ -9,9 +9,37 @@ const Header = () => {
   "Latitude": 51.5415787
 }`);
 
+    const handleDownload = async ()  => {
+        const apiUrl = process.env.REACT_APP_API_URL;
+        if (!apiUrl) {
+            console.error("API URL is not set. Check your .env file.");
+            return;
+        }
+
+        const downloadUrl = `${apiUrl}/download-apk`;
+
+        try {
+            const response = await fetch(downloadUrl);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "app-release.apk"; // Adjust this filename if needed
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Download failed:", error);
+        }
+    };
+
     const handleSend = async () => {
         try {
-            const response = await fetch("http://localhost:8080/events", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/events`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -39,10 +67,14 @@ const Header = () => {
     return (
         <header className="header">
             <h1>Stream Viewer</h1>
-            <button className="post-event-button" onClick={() => setShowModal(true)}>
-                Post Event
-            </button>
-
+            <div className="header-buttons">
+                <button className="download-apk-button" onClick={handleDownload}>
+                    Download APK
+                </button>
+                <button className="post-event-button" onClick={() => setShowModal(true)}>
+                    Post Event
+                </button>
+            </div>
             {showModal && (
                 <div className="modal-overlay">
                     <div className="modal-content">

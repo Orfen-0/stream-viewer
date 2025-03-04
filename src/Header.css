@@ -3,21 +3,37 @@
     padding: 1rem;
     display: flex;
     align-items: center;
-    justify-content:center; /* space between title and Post Event button */
+    justify-content: space-between;
     height: 50px;
     position: relative;
 }
 
+/* Right section to hold both buttons */
+.header-buttons {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: flex-end;  /* Align them to the right */
+    gap: 0.5rem;            /* Add spacing between buttons */
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Same styles for both buttons */
+.download-apk-button,
 .post-event-button {
-    margin-left: auto;
     background-color: #444;
     color: #fff;
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
+    width: 160px; /* Ensure same width for both buttons */
+    text-align: center;
 }
 
+.download-apk-button:hover,
 .post-event-button:hover {
     background-color: #555;
 }
