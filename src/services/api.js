@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://192.168.1.77:8080';
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 const checkResponse = async (response) => {
     if (!response.ok) {
