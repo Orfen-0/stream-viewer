@@ -13,6 +13,10 @@ const EventItem = ({ event, onStreamSelect, onFinishEvent }) => {
         ? `${event.location.Coordinates[1].toFixed(4)}, ${event.location.Coordinates[0].toFixed(4)}`
         : 'Unknown';
 
+    const activeLabel = event.status === 'active' ? 'Active' : 'Finished';
+
+    const hasLiveStream = event.streams && event.streams.some(stream => stream.status === 'live');
+
     return (
         <div className="event-item">
             <div className="event-header" onClick={() => setExpanded(!expanded)}>
