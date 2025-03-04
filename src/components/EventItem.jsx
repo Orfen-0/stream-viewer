@@ -18,38 +18,36 @@ const EventItem = ({ event, onStreamSelect, onFinishEvent }) => {
             <div className="event-header" onClick={() => setExpanded(!expanded)}>
                 <h3>{event.triggeredBy}</h3>
                 <span>{formattedDate}</span>
-                {event.status === 'active' && <span className="live-indicator">LIVE</span>}
             </div>
-            <div className="event-details">
-                <div className="event-info">
-                    <a
-                        className="location-link"
-                        href={googleMapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Location: {locationString}
-                    </a>
-                    <span className="radius-info">Radius: {event.radius} km</span>
-                </div>
-                {event.status === 'active' && (
-                    <button
-                        className="mark-finished-button"
-                        onClick={() => onFinishEvent(event.id)}
-                    >
-                        Mark as Finished
-                    </button>
-                )}
+            <div className="event-info">
+                <a
+                    className="location-link"
+                    href={googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {locationString}
+                </a>
+                <span className="radius-info">{event.radius} km</span>
             </div>
+            <div className="event-labels">
+                <span className="status-label">{activeLabel}</span>
+                {hasLiveStream && <span className="live-indicator">LIVE</span>}
+            </div>
+            {event.status === 'active' && (
+                <button
+                    className="mark-finished-button"
+                    onClick={() => onFinishEvent(event.id)}
+                >
+                    Mark as Finished
+                </button>
+            )}
             {expanded && (
-                <>
-                    <div className="divider"></div>
-                    {event.streams && event.streams.length > 0 ? (
-                        <StreamList streams={event.streams} onStreamSelect={onStreamSelect} />
-                    ) : (
-                        <div className="empty-message">No streams available for this event.</div>
-                    )}
-                </>
+                event.streams && event.streams.length > 0 ? (
+                    <StreamList streams={event.streams} onStreamSelect={onStreamSelect} />
+                ) : (
+                    <div className="empty-message">No streams available for this event.</div>
+                )
             )}
         </div>
     );

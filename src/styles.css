@@ -92,6 +92,24 @@ body {
     margin-bottom: 0.5rem;
 }
 
+/* Container for event labels */
+.event-labels {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin: 0.5rem 0;
+}
+
+/* Active/Non-active label */
+.status-label {
+    background-color: #444;
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+/* LIVE label (only visible when at least one stream is live) */
 .live-indicator {
     background-color: red;
     color: #fff;

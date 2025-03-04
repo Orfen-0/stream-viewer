@@ -21,7 +21,8 @@ const EventList = ({ onStreamSelect, onFinishEvent }) => {
     const [showActive, setShowActive] = useState(true);
     const [showFinished, setShowFinished] = useState(true);
 
-    useEffect(() => {
+    // Define a function to fetch events
+    const fetchEvents = () => {
         setLoading(true);
         const fromUnix = Math.floor(new Date(fromDate).getTime() / 1000);
         const toUnix = Math.floor(new Date(toDate).getTime() / 1000);
@@ -35,6 +36,13 @@ const EventList = ({ onStreamSelect, onFinishEvent }) => {
                 console.error('Error fetching events', error);
                 setLoading(false);
             });
+    };
+
+    // Fetch events immediately, and then every 30 seconds
+    useEffect(() => {
+        fetchEvents();
+        const intervalId = setInterval(fetchEvents, 15000);
+        return () => clearInterval(intervalId);
     }, [fromDate, toDate]);
 
     const handleFromDateChange = (e) => setFromDate(e.target.value);
@@ -42,10 +50,11 @@ const EventList = ({ onStreamSelect, onFinishEvent }) => {
     const handleActiveChange = (e) => setShowActive(e.target.checked);
     const handleFinishedChange = (e) => setShowFinished(e.target.checked);
 
-    const filteredEvents = events?.filter(event =>
-        (event.status === 'active' && showActive) ||
-        (event.status === 'finished' && showFinished)
-    ) || [];
+    const filteredEvents =
+        events?.filter(event =>
+            (event.status === 'active' && showActive) ||
+            (event.status === 'finished' && showFinished)
+        ) || [];
 
     return (
         <div className="event-list">
@@ -53,11 +62,11 @@ const EventList = ({ onStreamSelect, onFinishEvent }) => {
                 <div className="date-picker-container">
                     <label>
                         Start Date
-                            <DateTimePicker value={fromDate} onChange={date => setFromDate(new Date(date))} />
+                        <DateTimePicker value={fromDate} onChange={date => setFromDate(formatForInput(new Date(date)))} />
                     </label>
                     <label>
                         End Date
-                            <DateTimePicker value={toDate} onChange={date => setToDate(new Date(date))} />
+                        <DateTimePicker value={toDate} onChange={date => setToDate(formatForInput(new Date(date)))} />
                     </label>
                 </div>
                 <div>
