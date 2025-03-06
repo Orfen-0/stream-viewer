@@ -9,20 +9,22 @@ const StreamItem = ({ stream }) => {
     return (
         <div className="stream-item">
             <div className="stream-header">
-                <span className="stream-device">{stream.deviceId}</span>
+                <span className="stream-device">Device Id:{stream.deviceId} <br />Stream Id:{stream.id}</span>
                 <span className="stream-date">{formattedDate}</span>
-                {stream.status === 'live' && (
-                    <span className="live-indicator">LIVE</span>
-                )}
+                {stream.status === 'live' && <span className="live-indicator">LIVE</span>}
             </div>
             <button
                 className="watch-stream-button"
-                onClick={() => addStream(stream)}
+                onClick={() => {
+                    console.log("Adding stream:", stream);
+                    addStream(stream);
+                }}
             >
                 Watch Stream
             </button>
         </div>
     );
 };
+
 
 export default StreamItem;

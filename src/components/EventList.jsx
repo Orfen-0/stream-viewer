@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import EventItem from './EventItem';
 import { getEventsWithStreams } from '../services/api';
 import DateTimePicker from "./DateTimePicker";
@@ -11,25 +11,36 @@ const formatForInput = (date) => {
 const EventList = ({ onStreamSelect, onFinishEvent }) => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [forceRender, setForceRender] = useState(0); // ✅ Used to trigger UI updates
+    const expandedEvents = useRef(new Set()); // ✅ Store expanded states without losing them on re-render
 
     const now = new Date();
-    const oneWeekAgo = new Date(now);
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    now.setHours(23, 59, 59, 999);
+
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(now.getDate() - 7);
+    oneWeekAgo.setHours(0, 0, 0, 0);
 
     const [fromDate, setFromDate] = useState(formatForInput(oneWeekAgo));
     const [toDate, setToDate] = useState(formatForInput(now));
     const [showActive, setShowActive] = useState(true);
     const [showFinished, setShowFinished] = useState(true);
 
-    // Define a function to fetch events
     const fetchEvents = () => {
         setLoading(true);
         const fromUnix = Math.floor(new Date(fromDate).getTime() / 1000);
         const toUnix = Math.floor(new Date(toDate).getTime() / 1000);
 
         getEventsWithStreams(fromUnix, toUnix)
-            .then(data => {
-                setEvents(data);
+            .then(newEvents => {
+                setEvents(prevEvents => {
+                    const newIds = new Set(newEvents.map(e => e.id));
+
+                    // ✅ Keep expanded states only for existing events
+                    expandedEvents.current = new Set([...expandedEvents.current].filter(id => newIds.has(id)));
+
+                    return newEvents;
+                });
                 setLoading(false);
             })
             .catch(error => {
@@ -38,7 +49,6 @@ const EventList = ({ onStreamSelect, onFinishEvent }) => {
             });
     };
 
-    // Fetch events immediately, and then every 30 seconds
     useEffect(() => {
         fetchEvents();
         const intervalId = setInterval(fetchEvents, 15000);
@@ -50,11 +60,19 @@ const EventList = ({ onStreamSelect, onFinishEvent }) => {
     const handleActiveChange = (e) => setShowActive(e.target.checked);
     const handleFinishedChange = (e) => setShowFinished(e.target.checked);
 
-    const filteredEvents =
-        events?.filter(event =>
-            (event.status === 'active' && showActive) ||
-            (event.status === 'finished' && showFinished)
-        ) || [];
+    const toggleExpand = (id) => {
+        if (expandedEvents.current.has(id)) {
+            expandedEvents.current.delete(id);
+        } else {
+            expandedEvents.current.add(id);
+        }
+        setForceRender(prev => prev + 1); // ✅ Force re-render to reflect changes in the UI
+    };
+
+    const filteredEvents = (events?.filter(event =>
+        (event.status === 'active' && showActive) ||
+        (event.status === 'finished' && showFinished)
+    ) || []).sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
 
     return (
         <div className="event-list">
@@ -91,6 +109,8 @@ const EventList = ({ onStreamSelect, onFinishEvent }) => {
                         event={event}
                         onStreamSelect={onStreamSelect}
                         onFinishEvent={onFinishEvent}
+                        expanded={expandedEvents.current.has(event.id)} // ✅ Preserve expanded state
+                        toggleExpand={() => toggleExpand(event.id)}
                     />
                 ))
             )}

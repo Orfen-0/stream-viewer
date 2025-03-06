@@ -6,12 +6,21 @@ export const StreamPlaybackProvider = ({ children }) => {
     const [selectedStreams, setSelectedStreams] = useState([]);
 
     const addStream = (stream) => {
-        const streamKey = `${stream.deviceId}-${stream.startTime}`;
+        const streamKey = `${stream.deviceId}-${stream.id}`;
+
         setSelectedStreams((prev) => {
-            if (prev.find(s => s.key === streamKey)) return prev;
-            return [...prev, { ...stream, key: streamKey }];
+            if (prev.some(s => s.key === streamKey)) {
+                console.log(`Stream ${streamKey} is already playing. Skipping.`);
+                return prev; // ✅ Prevent duplicate
+            }
+
+            const newStreams = [...prev, { ...stream, key: streamKey }];
+            console.log("Updated stream list:", newStreams);
+            return newStreams;
         });
     };
+
+
 
     const removeStream = (key) => {
         console.log('Removing stream with key:', key);
