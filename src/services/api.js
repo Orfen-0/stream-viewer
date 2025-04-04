@@ -15,3 +15,18 @@ export const getEventsWithStreams = async (fromUnix, toUnix) => {
     const response = await fetch(url.toString());
     return checkResponse(response);
 };
+
+
+export const finishEvent = async (eventId) => {
+    const response = await fetch(`${API_BASE_URL}/finish-event?id=${eventId}`, {
+        method: 'POST'
+    });
+
+    if (!response.ok) {
+        const error = await response.text();
+        throw new Error(`Failed to finish event: ${error}`);
+    }
+
+    return response.json();
+};
+
